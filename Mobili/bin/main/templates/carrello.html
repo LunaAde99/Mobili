@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Contatta il nostro team per qualsiasi domanda o richiesta. Siamo qui per aiutarti!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="store.css">
+    <style>
+    body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    margin: 0; 
+    }
+    section {
+    flex: 1; 
+    }
+    footer {
+    margin-top: auto; 
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Prodotti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/">Home</a></li>
+    <li><a href="/store">Prodotti</a></li>
+</ul>
+
+<!-- Hero Section -->
+<section>
+<div class="container">
+    <table>
+        <thead>
+          <tr>
+              <th>Articolo</th>
+              <th>Prezzo</th>
+              <th>Quantità</th>
+              <th>Totale parziale</th>
+          </tr>
+        </thead>
+<tbody>
+  <tr th:each="mobili : ${carrello}">
+    <td th:text="${mobili.nome}"></td>
+    <td>€<span th:text="${mobili.prezzo}"></span></td>
+    <td th:text="${mobili.quantita}"></td>
+    <td th:text="${mobili.quantita}*${mobili.prezzo}"></td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(carrello)}">
+    <td colspan="4" class="center-align">Carrello vuoto</td>
+  </tr>
+</tbody>
+      </table>
+ <p id="totP">Totale= <span th:text="${totP} "></span></p>
+      <form action = "/formUtente" method="post">
+      <br>
+      <input type = "submit"  value = "Compra">
+      </form>
+      <form action = "/clear" method="post">
+      <br>
+      <input type = "submit"  value = "Svuota carrello">
+      </form>
+</div>
+
+</section>
+
+
+
+<!-- Footer -->
+<footer class="page-footer indigo darken-1">
+    <div class="container center-align">
+        <p>© 2024 E-commerce</p>
+        <a href="/contatti" class="white-text">Contattaci</a>
+    </div>
+</footer>
+
+</body>
+</html>

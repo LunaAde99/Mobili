@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Benvenuto nel nostro e-commerce! Trova i prodotti per la tua casa con un click!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="store.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidenavElems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(sidenavElems);
+
+            var selectElems = document.querySelectorAll('select');
+            M.FormSelect.init(selectElems);
+
+            var carouselElems = document.querySelectorAll('.carousel');
+            M.Carousel.init(carouselElems, {
+                shift: 30, 
+                dist: -100, 
+                padding: 20
+            });
+
+            setInterval(() => {
+                instance.next(); 
+            }, 5000);
+            
+            var cartElem = document.querySelector('.cart-icon');
+            var cartContent = document.querySelector('.cart-content');
+            if (cartElem && cartContent) {
+                cartElem.addEventListener('click', function() {
+                    cartContent.classList.toggle('hide');
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav>
+    <div class="nav-wrapper indigo darken-1">
+        <a href="#" class="brand-logo">E-commerce</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/store">Prodotti</a></li>
+            <li><a href="/carrello">Carrello</a></li>
+            <li><a href="/contatti">Contatti</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<ul class="sidenav" id="mobile-demo">
+    <li><a href="/store">Prodotti</a></li>
+    <li><a href="/carrello">Carrello</a></li>
+    <li><a href="/contatti">Contatti</a></li>
+</ul>
+
+<!-- Hero Section -->
+<section class="hero-section" style="background-image: url('https://th.bing.com/th/id/R.6f1f430e240c972be881a8bdef0fb7bc?rik=J7SJ6owAQNTbdw&pid=ImgRaw&r=0'); background-size: cover; background-position: center; padding: 100px 0;">
+    <div class="container center-align white-text">
+        <h1 class="display-4">Benvenuto nel nostro E-commerce!</h1>
+        <p class="lead">Trova i prodotti per la tua casa con un click!</p>
+        <a href="/store" class="btn-large indigo darken-1">Esplora i prodotti</a>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="categories-section section grey lighten-4">
+    <div class="container">
+        <h3 class="center-align">Articoli in evidenza</h3>
+    </div>
+    <main>
+        <div class="carousel-container">
+            <div class="carousel product-carousel-1">
+                <div th:each="mobili : ${listaM}" class="carousel-item">
+                    <div class="carousel-image-container">
+                        <img th:src="${mobili.url}" alt="Immagine prodotto" class="carousel-image" loading="lazy">
+                    </div>
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+<!-- Mappa -->
+<section class="testimonials-section section grey lighten-4">
+        <br><br><br><br>
+        <h3 class="center-align">Dove Trovarci</h3>
+        <div id="map"></div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section section grey lighten-4">
+    <div class="container">
+    <br><br><br><br>
+        <h3 class="center-align">Cosa dicono i nostri clienti</h3>
+        <div class="carousel product-carousel-2">
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                        </div>
+                        <p>"Prodotti fantastici e servizio impeccabile. Consigliato al 100%!"</p>
+                        <span>- Marco R.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons grey-text">star</i>
+                        </div>
+                        <p>"Ottima esperienza di acquisto. Facilità di navigazione e ottimi prezzi!"</p>
+                        <span>- Laura T.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                        </div>
+                        <p>"La qualità dei prodotti è davvero elevata. Non vedo l'ora di fare un altro acquisto."</p>
+                        <span>- Francesco L.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons grey-text">star</i>
+                        </div>
+                        <p>"Acquisto spesso in questo negozio, trovo sempre ciò che cerco a prezzi ragionevoli."</p>
+                        <span>- Alessandro P.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                        </div>
+                         <p>"Spedizioni veloci e qualità ottima. Ora la mia casa è bellissima."</p>
+                        <span>- Daniele Z.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons grey-text">star</i>
+                        </div>
+                        <p>"Ottimo rapporto qualità/prezzo. Ho decorato molti ambienti del mio ufficio."</p>
+                        <span>- Alessia N.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="rating">
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons grey-text">star</i>
+                        </div>
+                        <p>"Servizio clienti veloce e cortese, hanno risolto tempestivamente una problematica causata da una mia svista."</p>
+                        <span>- Silvia D.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="page-footer indigo darken-1">
+    <div class="container center-align">
+        <p>© 2024 E-commerce</p>
+        <a href="/contatti" class="white-text">Contattaci</a>
+    </div>
+</footer>
+
+<!-- Script di Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    // Inizializza la mappa
+    let map = L.map('map').setView([45.15262, 9.12423], 12);
+
+    // Aggiungi il layer Tile di OpenStreetMap
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Aggiungi un marker
+    L.marker([45.15262, 9.12423]).addTo(map)
+        .bindPopup('Luna Arredamenti Srl <br>Pavia, Italia')
+        .openPopup();
+</script>
+
+
+</body>
+</html>
