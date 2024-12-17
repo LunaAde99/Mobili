@@ -1,5 +1,4 @@
-Questo progetto simula un E-commerce di arredamento
-Sono stati utilizzati:
+Questo progetto simula un E-commerce di arredamento e sono stati utilizzati:
 - SpringBoot 
 - Spring Web 
 - Spring Security
